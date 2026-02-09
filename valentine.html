@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #f67280 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Sparkles Animation */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            padding-top: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .heart {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #fff;
+            margin: 30px 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .buttons-container {
+            position: relative;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            height: calc(100vh - 400px);
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff6b9d, #f67280);
+            color: white;
+            z-index: 2;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.5);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #ffd3d3, #ffb3ba);
+            color: #d63447;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .no-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Celebration styles */
+        .celebration {
+            display: none;
+            text-align: center;
+        }
+
+        .celebration.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .celebration h2 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .love-text {
+            font-size: 2.5em;
+            color: #fff;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b9d;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .emoji-rain {
+            position: absolute;
+            font-size: 30px;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-container">
+            <h1>Hey Beautiful! 💕</h1>
+            <div class="heart">❤️</div>
+            <p class="question">Will You Be My Valentine?</p>
+            
+            <div class="buttons-container">
+                <button class="yes-btn" onclick="sayYes()">Yes! 💖</button>
+                <button class="no-btn" id="noBtn" onmouseenter="moveButton()" onclick="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div class="celebration" id="celebration">
+            <h2>🎉 Yay! 🎉</h2>
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGJ2eGxkampqdHhlNWg0cHd4aHcydm4zaDVnODQyajFnamQ5bTl6diZlcD12MV9naWZzX3NlYXJjaCZjdD1n/IzXiddo2twMmdmU8Lv/giphy.gif" alt="Applause" style="width: 300px; margin: 30px 0; border-radius: 20px;">
+            <p class="love-text">I Love You!</p>
+        </div>
+    </div>
+
+    <script>
+        // Create sparkles
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.animationDelay = Math.random() * 3 + 's';
+                    document.body.appendChild(sparkle);
+                }, i * 100);
+            }
+        }
+
+        let noButtonClickCount = 0;
+        const noBtn = document.getElementById('noBtn');
+
+        function moveButton() {
+            noButtonClickCount++;
+            
+            if (noButtonClickCount >= 5) {
+                // On 5th attempt, move behind yes button
+                const yesBtn = document.querySelector('.yes-btn');
+                const yesBtnRect = yesBtn.getBoundingClientRect();
+                const container = document.querySelector('.buttons-container');
+                const containerRect = container.getBoundingClientRect();
+                
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = (yesBtnRect.left - containerRect.left) + 'px';
+                noBtn.style.top = (yesBtnRect.top - containerRect.top) + 'px';
+                noBtn.style.zIndex = '0';
+                return;
+            }
+
+            // Random positions for first 4 attempts - bigger movement range
+            const container = document.querySelector('.buttons-container');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = containerRect.width - noBtn.offsetWidth - 20;
+            const maxY = containerRect.height - noBtn.offsetHeight - 20;
+            
+            // Generate random position with minimum distance from current position
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function sayYes() {
+            document.querySelector('.question-container').style.display = 'none';
+            document.getElementById('celebration').classList.add('active');
+            
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = ['#ff6b9d', '#f67280', '#c06c84', '#ffd3d3'][Math.floor(Math.random() * 4)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                }, i * 30);
+            }
+
+            // Create emoji rain
+            const emojis = ['❤️', '💕', '💖', '💗', '💝', '💘', '😍', '🥰'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-rain';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDelay = Math.random() * 2 + 's';
+                    emoji.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    document.body.appendChild(emoji);
+                }, i * 100);
+            }
+        }
+
+        // Initialize sparkles
+        createSparkles();
+        setInterval(createSparkles, 3000);
+    </script>
+</body>
+</html>
